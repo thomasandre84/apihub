@@ -1,0 +1,101 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: apihub-postgres
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: apihub
+      POSTGRES_USER: apihub
+    volumes:
+      - $PWD/init_user_dbs.sql:/docker-entrypoint-initdb.d/init-user-dbs.sql
+    ports:
+      - 5432:5432
+
+  vault:
+    container_name: apihub-vault
+    image: vault:1.10.4
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAUKT_ADDR: http://0.0.0.0:8200
+    ports:
+      - 8200:8200
+
+  keycloak:
+    container_name: apihub-keycloak
+    image: jboss/keycloak:16.1.1
+    depends_on:
+      - postgres
+    #restart: always
+    ports:
+      - 9080:8080
+    environment:
+      DB_USER: apihub_keycloak
+      DB_PASSWORD: apihub_keycloak
+      DB_ADDR: "postgres:5432"
+      DB_DATABASE: apihub
+      DB_SCHEMA: apihub_keycloak
+      DB_VENDOR: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: keycloak
+      #KEYCLOAK_IMPORT: /tmp/realm.json
+    #volumes:
+    #  - $PWD/realm.json:/tmp/realm.json
+
+
+  zookeeper:
+    container_name: apihub-zookeeper
+    image: bitnami/zookeeper:3.8
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: yes
+
+  kafka:
+    container_name: apihub-kafka
+    image: bitnami/kafka:3.2
+    depends_on:
+      - zookeeper
+    environment:
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+    ports:
+      - 9092:9092
+
+  schema-registry:
+    image: apicurio/apicurio-registry-mem:2.2.4.Final
+    ports:
+      - 7080:8080
+    depends_on:
+      - kafka
+    environment:
+      QUARKUS_PROFILE: prod
+
+  kafdrop:
+    container_name: apihub-kafdrop
+    image: obsidiandynamics/kafdrop:3.30.0
+    depends_on:
+      - kafka
+    ports:
+      - 9000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+      JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_SERVLET_CONTEXTPATH: "/"
+
+  kafka-ui:
+    container_name: apihub-kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 9001:8080
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      #KAFKA_CLUSTERS_0_JMXPORT: 9997

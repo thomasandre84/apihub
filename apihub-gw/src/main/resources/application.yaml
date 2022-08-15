@@ -1,0 +1,26 @@
+quarkus:
+  datasource:
+    db-kind: pg
+    health:
+      enabled: true
+
+mp:
+  messaging:
+    incoming:
+      connector: smallrye-kafka
+      client-updates:
+        topic: client-updates
+        auto:
+          offset:
+            reset: earliest
+        value:
+          deserializer: org.apache.kafka.common.serialization.DoubleDeserializer
+        broadcast: true
+        failure-strategy: dead-letter-queue
+    outgoing:
+      connector: smallrye-kafka
+      billing:
+        topic: billing
+      apicurio:
+        registry:
+          auto-register: true

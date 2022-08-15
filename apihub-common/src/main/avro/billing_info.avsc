@@ -1,0 +1,15 @@
+{
+  "namespace": "com.github.thomasandre.apihub",
+  "type": "record",
+  "name": "BillingInfo",
+  "fields": [
+    {
+      "name": "clientId",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "int"
+    }
+  ]
+}

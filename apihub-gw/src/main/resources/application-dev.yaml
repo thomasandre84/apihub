@@ -1,0 +1,25 @@
+quarkus:
+  http:
+    port: 8080
+  datasource:
+    reactive:
+      url: vertx-reactive:postgres://localhost:5432/apihub
+      max-size: 5
+    username: apihub_gw
+    password: apihub_gw
+
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+
+mp:
+  messaging:
+    connector:
+      smallrye-kafka:
+        schema:
+          registry:
+            url: http://localhost:7080

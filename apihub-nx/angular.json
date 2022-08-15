@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "apihub-portal": "apps/apihub-portal",
+    "apihub-portal-e2e": "apps/apihub-portal-e2e"
+  }
+}
