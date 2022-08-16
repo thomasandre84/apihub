@@ -4,18 +4,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.thomasandre</groupId>
+    <groupId>com.github.thomasandre84</groupId>
     <artifactId>apihub</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.github.thomasandre</groupId>
   <artifactId>apihub-mock</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
-  <module>apihub-mock-provider</module>
+    <module>apihub-mock-provider</module>
   </modules>
 
 </project>

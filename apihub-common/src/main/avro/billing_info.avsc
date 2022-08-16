@@ -1,5 +1,5 @@
 {
-  "namespace": "com.github.thomasandre.apihub",
+  "namespace": "com.github.thomasandre84.apihub",
   "type": "record",
   "name": "BillingInfo",
   "fields": [
