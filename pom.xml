@@ -20,6 +20,7 @@
   </modules>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <kotlin.version>1.6.21</kotlin.version>
     <failsafe.useModulePath>false</failsafe.useModulePath>
     <jacoco.version>0.8.8</jacoco.version>
     <maven.compiler.release>17</maven.compiler.release>
