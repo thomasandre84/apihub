@@ -66,6 +66,7 @@ services:
       - 9092:9092
 
   schema-registry:
+    container_name: apihub-schema-registry
     image: apicurio/apicurio-registry-mem:2.2.4.Final
     ports:
       - 7080:8080
@@ -99,3 +100,22 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       #KAFKA_CLUSTERS_0_JMXPORT: 9997
+
+  kong:
+    container_name: apihub-kong
+    image: kong:2.8.1-alpine
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 8444:8444
+    volumes:
+      - $PWD/kong/:/kong/declarative/
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /kong/declarative/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
