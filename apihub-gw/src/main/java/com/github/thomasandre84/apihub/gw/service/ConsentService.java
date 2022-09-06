@@ -1,7 +1,9 @@
 package com.github.thomasandre84.apihub.gw.service;
 
 import com.github.thomasandre84.apihub.gw.model.Consent;
+import com.github.thomasandre84.apihub.gw.model.ConsentStatus;
 import com.github.thomasandre84.apihub.gw.repository.ConsentRepository;
+import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,23 @@ public class ConsentService {
     }
 
     public Uni<Consent> getConsent(UUID id, String providerId, UUID userId) {
-        return consentRepository.findById(id);
+        return consentRepository.findById(id)
+                .onItem().ifNotNull()
+                    .transform(v -> v.getProviderId().getId().equals(providerId) ? v : null)
+                .onItem().ifNotNull()
+                    .transform(v -> v.getUserId().getId().equals(userId) ? v : null);
+    }
 
+    @ReactiveTransactional
+    public Uni<Consent> createConsent() {
+        return null; //TODO
+    }
+
+    @ReactiveTransactional
+    public Uni<Consent> deleteConsent(UUID id,String providerId, UUID userId) {
+        Uni<Consent> consentUni = getConsent(id, providerId, userId);
+        return consentUni
+                .onItem().ifNotNull().invoke(v -> v.setStatus(ConsentStatus.DELETED));
+        //TODO verify if object is saved implicitely
     }
 }
