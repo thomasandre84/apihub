@@ -140,6 +140,11 @@
               <version>${mapstruct.version}</version>
             </path>
             <!-- other annotation processors -->
+            <path>
+              <groupId>io.quarkus</groupId>
+              <artifactId>quarkus-panache-common</artifactId>
+              <version>${quarkus.platform.version}</version>
+            </path>
           </annotationProcessorPaths>
         </configuration>
       </plugin>
