@@ -42,6 +42,9 @@ public class Consent {
 
     private ConsentStatus status;
 
+    @OneToOne
+    private ProviderToken providerToken;
+
     @PrePersist
     void create() {
         created = OffsetDateTime.now();

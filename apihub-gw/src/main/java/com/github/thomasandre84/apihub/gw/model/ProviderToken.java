@@ -8,11 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
 @Entity
 public class ProviderToken {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -27,4 +29,16 @@ public class ProviderToken {
     )
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+
+    @Column(length = 8000)
+    private String accessToken;
+
+    private OffsetDateTime accessTokenExpiration;
+
+    @Column(length = 8000)
+    private String refreshToken;
+
+    private OffsetDateTime refreshTokenExpiration;
+
+    private String scope;
 }
