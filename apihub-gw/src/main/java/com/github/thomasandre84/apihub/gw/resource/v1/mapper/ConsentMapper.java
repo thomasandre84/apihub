@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 public interface ConsentMapper {
 
     @Mappings({
-        @Mapping(target = "referenceID", source = "id"),
+        @Mapping(target = "consentId", source = "id"),
         @Mapping(target = "providerId", source = "providerId.id"),
         @Mapping(target = "userId", source = "userId.id")
     })
