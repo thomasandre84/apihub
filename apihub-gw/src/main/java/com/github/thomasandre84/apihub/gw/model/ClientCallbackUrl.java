@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.net.URI;
 import java.util.UUID;
 
 @Data
@@ -28,4 +29,6 @@ public class ClientCallbackUrl {
     )
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+
+    private URI url;
 }

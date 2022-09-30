@@ -4,5 +4,5 @@ public enum ConsentStatus {
     CREATED,
     VALID,
     INVALID,
-    DELETED
+    REVOKED
 }

@@ -7,7 +7,6 @@ quarkus:
       max-size: 5
     username: apihub_gw
     password: apihub_gw
-
   hibernate-orm:
     database:
       generation: drop-and-create

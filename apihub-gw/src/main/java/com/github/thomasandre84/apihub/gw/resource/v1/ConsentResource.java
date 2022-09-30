@@ -3,14 +3,17 @@ package com.github.thomasandre84.apihub.gw.resource.v1;
 import com.github.thomasandre84.apihub.gw.resource.v1.dto.ConsentResponseDto;
 import com.github.thomasandre84.apihub.gw.resource.v1.mapper.ConsentMapper;
 import com.github.thomasandre84.apihub.gw.service.ConsentService;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
+import org.jboss.resteasy.reactive.RestResponse;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 import java.util.UUID;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequiredArgsConstructor
 @Path(ConsentResource.BASE_URL)
 public class ConsentResource {
@@ -19,42 +22,45 @@ public class ConsentResource {
     private final ConsentMapper mapper;
 
     @GET
-    @Path("/{providerId}/{userId}")
-    public Multi<ConsentResponseDto> getConsents(
+    @Path("/{providerId}/{clientAppId}")
+    public Uni<RestResponse<List<ConsentResponseDto>>> getConsents(
             @PathParam("providerId") String providerId,
-            @PathParam("userId") UUID userId
+            @PathParam("clientAppId") UUID clientAppId
             ) {
-        return service.getConsents(providerId, userId)
-                .onItem().transform(mapper::fromConsent);
+        return service.getConsents(providerId, clientAppId)
+                .onItem().transform(mapper::fromConsent)
+                .collect().asList()
+                .onItem().transform(RestResponse::ok);
     }
 
     @GET
-    @Path("/{providerId}/{userId}/{consentId}")
-    public Uni<Response> getConsent(
+    @Path("/{providerId}/{clientAppId}/{consentId}")
+    public Uni<RestResponse<ConsentResponseDto>> getConsent(
             @PathParam("providerId") String providerId,
-            @PathParam("userId") UUID userId,
+            @PathParam("clientAppId") UUID clientAppId,
             @PathParam("consentId") UUID consentId
     ) {
-        return service.getConsent(consentId, providerId, userId)
-                .onItem().ifNotNull().transform(mapper::fromConsent)
-                .onItem().ifNotNull().transform(v -> Response.ok(v).build())
-                .onItem().ifNull().continueWith(Response.status(Response.Status.NOT_FOUND).build()); //TODO handle failure
+        return service.getConsent(consentId, providerId, clientAppId)
+                .onItem().transform(mapper::fromConsent)
+                .onItem().transform(RestResponse::ok);
     }
 
     @POST
-    public Uni<String> createConsent() {
-        return Uni.createFrom().item("test"); //TODO
+    public Uni<RestResponse<ConsentResponseDto>> createConsent() {
+        //TODO
+        return service.createConsent(null, null, null, null)
+                .onItem().transform(mapper::fromConsent)
+                .onItem().transform(RestResponse::ok);
     }
 
     @DELETE
-    @Path("/{providerId}/{userId}/{consentId}")
-    public Uni<Void> deleteConsent(
+    @Path("/{providerId}/{clientAppId}/{consentId}")
+    public Uni<RestResponse<Void>> deleteConsent(
             @PathParam("providerId") String providerId,
-            @PathParam("userId") UUID userId,
+            @PathParam("clientAppId") UUID clientAppId,
             @PathParam("consentId") UUID consentId
     ) {
-        return service.deleteConsent(consentId, providerId, userId)
-                .onItem().ifNotNull().transformToUni(v -> Uni.createFrom().voidItem())
-                .onItem().ifNull().failWith(Throwable::new); //TODO
+        return service.deleteConsent(consentId, providerId, clientAppId)
+                .onItem().transform(v -> RestResponse.noContent());
     }
 }
