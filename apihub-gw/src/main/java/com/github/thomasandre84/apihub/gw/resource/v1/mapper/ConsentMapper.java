@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 public interface ConsentMapper {
 
     @Mapping(target = "consentId", source = "id")
-    @Mapping(target = "providerId", source = "providerId.id")
-    @Mapping(target = "userId", source = "userId.id")
+    @Mapping(target = "providerId", source = "provider.id")
+    @Mapping(target = "clientAppId", source = "clientApp.id")
     ConsentResponseDto fromConsent(Consent consent);
 }

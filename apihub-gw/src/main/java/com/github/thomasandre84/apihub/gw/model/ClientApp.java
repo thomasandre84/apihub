@@ -4,10 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -28,4 +25,7 @@ public class ClientApp {
     )
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+
+    @ManyToOne
+    private ClientCallbackUrl callbackUrl;
 }

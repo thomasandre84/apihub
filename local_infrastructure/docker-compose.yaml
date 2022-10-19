@@ -4,7 +4,7 @@ services:
   postgres:
     container_name: apihub-postgres
     image: postgres:14
-    restart: always
+    #restart: always
     environment:
       POSTGRES_PASSWORD: apihub
       POSTGRES_USER: apihub
@@ -45,25 +45,54 @@ services:
     #  - $PWD/realm.json:/tmp/realm.json
 
 
-  zookeeper:
-    container_name: apihub-zookeeper
-    image: bitnami/zookeeper:3.8
-    environment:
-      ALLOW_ANONYMOUS_LOGIN: yes
+#  zookeeper:
+#    container_name: apihub-zookeeper
+#    image: bitnami/zookeeper:3.8
+#    environment:
+#      ALLOW_ANONYMOUS_LOGIN: yes
 
-  kafka:
-    container_name: apihub-kafka
-    image: bitnami/kafka:3.2
-    depends_on:
-      - zookeeper
-    environment:
-      ALLOW_PLAINTEXT_LISTENER: yes
-      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_BROKER_ID: 1
-      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+#  kafka:
+#    container_name: apihub-kafka
+#    image: bitnami/kafka:3.2
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      ALLOW_PLAINTEXT_LISTENER: yes
+#      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+#      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+#    ports:
+#      - 9092:9092
+
+  redpanda:
+    # NOTE: Please use the latest version here!
+    image: docker.redpanda.com/vectorized/redpanda:v21.11.15
+    container_name: redpanda
+    command:
+      - redpanda
+      - start
+      - --smp
+      - '1'
+      - --reserve-memory
+      - 0M
+      - --overprovisioned
+      - --node-id
+      - '0'
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+      - --pandaproxy-addr
+      - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+      - --advertise-pandaproxy-addr
+      - PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082
     ports:
+      - 8081:8081
+      - 8082:8082
       - 9092:9092
+      - 28082:28082
+      - 29092:29092
 
   schema-registry:
     container_name: apihub-schema-registry
@@ -71,34 +100,34 @@ services:
     ports:
       - 7080:8080
     depends_on:
-      - kafka
+      - redpanda
     environment:
       QUARKUS_PROFILE: prod
 
-  kafdrop:
-    container_name: apihub-kafdrop
-    image: obsidiandynamics/kafdrop:3.30.0
-    depends_on:
-      - kafka
-    ports:
-      - 9000:9000
-    environment:
-      KAFKA_BROKERCONNECT: kafka:9092
-      JVM_OPTS: "-Xms32M -Xmx64M"
-      SERVER_SERVLET_CONTEXTPATH: "/"
+#  kafdrop:
+#    container_name: apihub-kafdrop
+#    image: obsidiandynamics/kafdrop:3.30.0
+#    depends_on:
+#      - kafka
+#    ports:
+#      - 9000:9000
+#    environment:
+#      KAFKA_BROKERCONNECT: kafka:9092
+#      JVM_OPTS: "-Xms32M -Xmx64M"
+#      SERVER_SERVLET_CONTEXTPATH: "/"
 
-  kafka-ui:
-    container_name: apihub-kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 9001:8080
-    depends_on:
-      - zookeeper
-      - kafka
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+#  kafka-ui:
+#    container_name: apihub-kafka-ui
+#    image: provectuslabs/kafka-ui:latest
+#    ports:
+#      - 9001:8080
+#    depends_on:
+#      - zookeeper
+#      - kafka
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       #KAFKA_CLUSTERS_0_JMXPORT: 9997
 
   kong:

@@ -3,13 +3,18 @@ quarkus:
     db-kind: pg
     health:
       enabled: true
+  kafka:
+    health:
+      enabled: true
 
 mp:
   messaging:
     incoming:
-      connector: smallrye-kafka
       client-updates:
-        topic: client-updates
+        connector: smallrye-kafka
+        group:
+          id: gw
+        topic: "client-updates"
         auto:
           offset:
             reset: earliest
@@ -17,9 +22,10 @@ mp:
           deserializer: org.apache.kafka.common.serialization.DoubleDeserializer
         broadcast: true
         failure-strategy: dead-letter-queue
+        health-enabled: true
     outgoing:
-      connector: smallrye-kafka
       billing:
+        connector: smallrye-kafka
         topic: billing
       apicurio:
         registry:

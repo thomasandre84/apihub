@@ -29,12 +29,18 @@ public class Consent {
     private String scope;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Client userId;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private Provider providerId;
+    private Provider provider;
+
+    @ManyToOne
+    @JoinColumn(name = "client_app_id")
+    private ClientApp clientApp;
+
+    private String userId;
 
     private OffsetDateTime created;
 
