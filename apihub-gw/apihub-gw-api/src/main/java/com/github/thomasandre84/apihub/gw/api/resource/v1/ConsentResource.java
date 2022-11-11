@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Path(ConsentResource.BASE_URL)
 public class ConsentResource {
-    static final String BASE_URL = "/api/v1/consents";
+    public static final String BASE_URL = "/api/v1/consents";
     private final ConsentService service;
     private final ConsentApiMapper mapper;
 
