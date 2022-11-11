@@ -2,11 +2,13 @@ package com.github.thomasandre84.apihub.gw;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
+import lombok.extern.slf4j.Slf4j;
 
 @QuarkusMain
+@Slf4j
 public class Main {
     public static void main(String ... args) {
-        System.out.println("Running main method");
+        log.info("Running main method");
         Quarkus.run(args);
     }
 }
