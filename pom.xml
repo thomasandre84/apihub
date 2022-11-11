@@ -28,11 +28,12 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>2.13.3.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.15.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-    <mapstruct.version>1.5.2.Final</mapstruct.version>
+    <mapstruct.version>1.5.3.Final</mapstruct.version>
     <lombok.version>1.18.24</lombok.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+    <tink.version>1.7.0</tink.version>
     <sonar.projectKey>thomasandre84_apihub</sonar.projectKey>
     <sonar.organization>thomasandre84</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>

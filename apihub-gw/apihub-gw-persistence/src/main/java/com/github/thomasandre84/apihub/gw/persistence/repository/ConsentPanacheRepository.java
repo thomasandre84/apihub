@@ -12,7 +12,7 @@ public class ConsentPanacheRepository implements PanacheRepositoryBase<Consent, 
 
 
     public Multi<Consent> findByProviderIdAndUserId(String providerId, UUID userId) {
-        return find("provider.id = ?1 and userId = ?2", providerId, userId.toString())
+        return find("provider.providerId = ?1 and userId = ?2", providerId, userId.toString())
                 .stream();
     }
 }

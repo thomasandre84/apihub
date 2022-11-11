@@ -18,6 +18,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-reactive-panache-common</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mapstruct</groupId>
@@ -39,6 +40,7 @@
       <artifactId>quarkus-jacoco</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>
