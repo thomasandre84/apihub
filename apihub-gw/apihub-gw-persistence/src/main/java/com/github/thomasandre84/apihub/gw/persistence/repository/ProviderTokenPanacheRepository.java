@@ -1,11 +1,11 @@
 package com.github.thomasandre84.apihub.gw.persistence.repository;
 
-import com.github.thomasandre84.apihub.gw.persistence.model.ClientApp;
+import com.github.thomasandre84.apihub.gw.persistence.model.ProviderToken;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 @ApplicationScoped
-public class ClientAppPanacheRepository implements PanacheRepositoryBase<ClientApp, UUID> {
+public class ProviderTokenPanacheRepository implements PanacheRepositoryBase<ProviderToken, UUID> {
 }

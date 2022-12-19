@@ -46,7 +46,7 @@ public class ConsentService {
     @ReactiveTransactional
     public Uni<ConsentDomain> createConsent(String providerId, String userId, UUID clientApp, String scope) {
         var uniClientApp = clientAppRepository.findById(clientApp);
-        var uniProvider = providerRepository.findById(providerId);
+        var uniProvider = providerRepository.findByProviderId(providerId);
 
         var consent = new ConsentDomain();
         consent.setStatus(ConsentStatus.CREATED);
