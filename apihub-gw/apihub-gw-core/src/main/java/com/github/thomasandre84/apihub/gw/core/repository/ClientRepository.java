@@ -4,7 +4,7 @@ package com.github.thomasandre84.apihub.gw.core.repository;
 import com.github.thomasandre84.apihub.gw.core.domain.ClientDomain;
 import io.smallrye.mutiny.Uni;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 public interface ClientRepository {

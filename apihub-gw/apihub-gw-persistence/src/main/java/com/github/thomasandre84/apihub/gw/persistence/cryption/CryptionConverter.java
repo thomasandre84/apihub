@@ -1,9 +1,9 @@
 package com.github.thomasandre84.apihub.gw.persistence.cryption;
 
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import java.security.GeneralSecurityException;
 
 @Converter

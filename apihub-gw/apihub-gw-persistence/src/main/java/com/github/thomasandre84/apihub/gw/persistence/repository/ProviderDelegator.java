@@ -6,7 +6,7 @@ import com.github.thomasandre84.apihub.gw.persistence.mapper.ProviderEntityMappe
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @RequiredArgsConstructor
