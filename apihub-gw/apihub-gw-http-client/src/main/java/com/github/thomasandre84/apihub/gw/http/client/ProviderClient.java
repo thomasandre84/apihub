@@ -3,7 +3,7 @@ package com.github.thomasandre84.apihub.gw.http.client;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.net.URI;
 
 @ApplicationScoped

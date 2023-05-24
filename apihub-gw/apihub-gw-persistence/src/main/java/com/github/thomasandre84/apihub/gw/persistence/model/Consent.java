@@ -4,7 +4,7 @@ import com.github.thomasandre84.apihub.gw.core.domain.ConsentStatus;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 

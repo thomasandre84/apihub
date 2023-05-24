@@ -3,7 +3,7 @@ package com.github.thomasandre84.apihub.gw.persistence.model;
 import com.github.thomasandre84.apihub.gw.persistence.cryption.CryptionConverter;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 
 @Data

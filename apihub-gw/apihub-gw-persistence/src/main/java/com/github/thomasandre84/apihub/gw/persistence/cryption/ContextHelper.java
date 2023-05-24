@@ -1,7 +1,7 @@
 package com.github.thomasandre84.apihub.gw.persistence.cryption;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.spi.BeanManager;
 
 @ApplicationScoped
 public class ContextHelper {
