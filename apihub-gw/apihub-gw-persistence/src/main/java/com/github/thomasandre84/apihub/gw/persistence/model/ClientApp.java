@@ -1,9 +1,11 @@
 package com.github.thomasandre84.apihub.gw.persistence.model;
 
-import lombok.Data;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class ClientApp extends BaseEntity {
 

@@ -1,13 +1,15 @@
 package com.github.thomasandre84.apihub.gw.persistence.model;
 
-import lombok.Data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.net.URL;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Provider extends BaseEntity {
 

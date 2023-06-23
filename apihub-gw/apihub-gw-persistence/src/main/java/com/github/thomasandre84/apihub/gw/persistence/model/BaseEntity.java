@@ -1,13 +1,13 @@
 package com.github.thomasandre84.apihub.gw.persistence.model;
 
-import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import jakarta.persistence.*;
 import java.util.UUID;
 
-@Data
+@Getter
 @MappedSuperclass
 public abstract class BaseEntity {
 

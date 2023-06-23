@@ -1,12 +1,15 @@
 package com.github.thomasandre84.apihub.gw.persistence.model;
 
 import com.github.thomasandre84.apihub.gw.persistence.cryption.CryptionConverter;
-import lombok.Data;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.OffsetDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class ProviderToken extends BaseEntity {
 
