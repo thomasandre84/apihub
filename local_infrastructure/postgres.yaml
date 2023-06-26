@@ -1,0 +1,71 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.5.1
+
+# NOTE: If you generated this yaml from an unprivileged and rootless podman container on an SELinux
+# enabled system, check the podman generate kube man page for steps to follow to ensure that your pod/container
+# has the right permissions to access the volumes added.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-06-23T14:03:38Z"
+  labels:
+    app: apihub-postgres-pod
+  name: apihub-postgres-pod
+spec:
+  ports:
+  - name: "5432"
+    nodePort: 31321
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: apihub-postgres-pod
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2023-06-23T14:03:38Z"
+  labels:
+    app: apihub-postgres-pod
+  name: apihub-postgres-pod-deployment
+spec:
+  selector:
+    matchLabels:
+      app: apihub-postgres-pod
+  template:
+    metadata:
+      annotations:
+        io.podman.annotations.ulimit: nofile=524288:524288,nproc=46448:46448
+      creationTimestamp: "2023-06-23T14:03:38Z"
+      labels:
+        app: apihub-postgres-pod
+      name: apihub-postgres-pod
+    spec:
+      containers:
+      - args:
+        - postgres
+        env:
+        - name: POSTGRES_PASSWORD
+          value: apihub
+        - name: POSTGRES_USER
+          value: apihub
+        image: docker.io/library/postgres:14
+        name: apihub-postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d/init-user-dbs.sql
+          name: home-thommi-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
+        - mountPath: /var/lib/postgresql/data
+          name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
+      volumes:
+      - hostPath:
+          path: /home/thommi/workspace/apihub/local_infrastructure/init_user_dbs.sql
+          type: File
+        name: home-thommi-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
+      - name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
+        persistentVolumeClaim:
+          claimName: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8

@@ -1,14 +1,14 @@
 package com.github.thomasandre84.apihub.gw.persistence.model;
 
 import com.github.thomasandre84.apihub.gw.core.domain.ConsentStatus;
-import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Getter;
+import lombok.Setter;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Consent extends BaseEntity {
 
