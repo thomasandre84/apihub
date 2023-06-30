@@ -58,14 +58,14 @@ spec:
         - containerPort: 5432
         volumeMounts:
         - mountPath: /docker-entrypoint-initdb.d/init-user-dbs.sql
-          name: home-thommi-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
+          name: home-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
         - mountPath: /var/lib/postgresql/data
           name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
       volumes:
       - hostPath:
-          path: /home/thommi/workspace/apihub/local_infrastructure/init_user_dbs.sql
+          path: ${HOME}/workspace/apihub/local_infrastructure/init_user_dbs.sql
           type: File
-        name: home-thommi-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
+        name: home-workspace-apihub-local_infrastructure-init_user_dbs.sql-host-0
       - name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
         persistentVolumeClaim:
           claimName: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8
