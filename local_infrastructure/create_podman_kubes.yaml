@@ -1,0 +1,17 @@
+---
+- name: Start Podman
+  hosts: localhost
+
+  tasks:
+    - name: Play kube file
+      containers.podman.podman_play:
+        kube_file: "{{ item }}"
+        recreate: true
+        state: started
+      loop:
+        - postgres.yaml
+        - redpanda.yaml
+        - keycloak.yaml
+        - apicurio.yaml
+        - vault.yaml
+        - kong.yaml
