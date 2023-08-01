@@ -13,6 +13,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.github.thomasandre84</groupId>
+      <artifactId>apihub-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-kotlin</artifactId>
     </dependency>
@@ -23,6 +28,10 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-config-yaml</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
