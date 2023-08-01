@@ -6,6 +6,10 @@ quarkus:
   kafka:
     health:
       enabled: true
+  rest-client:
+    file-provider:
+      url: http://localhost:8091
+      scope: jakarta.inject.Singleton
 
 mp:
   messaging:

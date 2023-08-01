@@ -1,6 +1,9 @@
 quarkus:
   http:
     port: 8080
+  log:
+    console:
+        json: false
   datasource:
     reactive:
       url: vertx-reactive:postgres://localhost:5432/apihub
@@ -10,6 +13,10 @@ quarkus:
   hibernate-orm:
     database:
       generation: drop-and-create
+  rest-client:
+    file-provider:
+      url: http://localhost:8091
+      scope: jakarta.inject.Singleton
 
 kafka:
   bootstrap:

@@ -1,5 +1,7 @@
 package com.github.thomasandre84.apihub.gw.http.client;
 
+import com.github.thomasandre84.apihub.common.rest.FileProviderResourceIf;
+import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -8,9 +10,14 @@ import java.net.URI;
 
 @ApplicationScoped
 public class ProviderClient {
+
+
+
     public void request() {
         RestClientBuilder.newBuilder()
                 .baseUri(URI.create("https://stage.code.quarkus.io/api"))
                 .build(RestClient.class);
     }
+
+
 }
