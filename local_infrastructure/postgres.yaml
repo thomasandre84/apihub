@@ -33,27 +33,25 @@ spec:
       name: apihub-postgres
     spec:
       containers:
-      - args:
-        - postgres
+      - name: apihub-postgres
+        image: docker.io/library/postgres:14
+        ports:
+          - containerPort: 5432
         env:
         - name: POSTGRES_PASSWORD
           value: apihub
         - name: POSTGRES_USER
           value: apihub
-        image: docker.io/library/postgres:14
-        name: apihub-postgres
-        ports:
-        - containerPort: 5432
         volumeMounts:
         - mountPath: /docker-entrypoint-initdb.d/init-user-dbs.sql
-          name: init_user_dbs.sql
+          name: init_user_dbs-sql-file
         - mountPath: /var/lib/postgresql/data
           name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
       volumes:
       - hostPath:
           path: ./init_user_dbs.sql
           type: File
-        name: init_user_dbs.sql
+        name: init_user_dbs-sql-file
       - name: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8-pvc
         persistentVolumeClaim:
           claimName: ba5b6b1b3069c6f65f9b01601f689c26891d8735ed069e7439ad395ca35e35e8

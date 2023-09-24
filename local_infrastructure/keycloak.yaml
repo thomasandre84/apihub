@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apihub-keycloak
+  name: apihub-keycloak
+spec:
+  ports:
+  - name: "http"
+    nodePort: 31380
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: apihub-keycloak
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apihub-keycloak
+  name: apihub-keycloak
+spec:
+  selector:
+    matchLabels:
+      app: apihub-keycloak
+  template:
+    metadata:
+      labels:
+        app: apihub-keycloak
+      name: apihub-keycloak
+    spec:
+      containers:
+      - name: apihub-keycloak
+        image: bitnami/keycloak:21.1.2
+        ports:
+          - containerPort: 8080
+            hostPort: 9080
+        env:
+        - name: KEYCLOAK_DATABASE_USER
+          value: apihub_keycloak
+        - name: KEYCLOAK_DATABASE_PASSWORD
+          value: apihub_keycloak
+        - name: KEYCLOAK_DATABASE_HOST
+          value: apihub-postgres
+        - name: KEYCLOAK_DATABASE_PORT
+          value: 5432
+        - name: KEYCLOAK_DATABASE_NAME
+          value: apihub
+        - name: KEYCLOAK_DATABASE_SCHEMA
+          value: apihub_keycloak
+        - name: KEYCLOAK_DATABASE_VENDOR
+          value: postgresql
+        - name: KEYCLOAK_ADMIN_USER
+          value: apihub
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: apihub
+
+
+

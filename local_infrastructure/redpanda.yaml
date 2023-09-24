@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apihub-redpanda
+  name: apihub-postgres
+spec:
+  ports:
+  - name: "18081"
+    nodePort: 38081
+    port: 18081
+    targetPort: 8081
+  - name: "18082"
+    nodePort: 38082
+    port: 18082
+    targetPort: 8082
+  - name: "9091"
+    nodePort: 39091
+    port: 9091
+    targetPort: 9091
+  - name: "9644"
+    nodePort: 39644
+    port: 9644
+    targetPort: 9644
+  selector:
+    app: apihub-redpanda
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apihub-redpanda
+  name: apihub-redpanda
+spec:
+  selector:
+    matchLabels:
+      app: apihub-redpanda
+  template:
+    metadata:
+      labels:
+        app: apihub-redpanda
+      name: apihub-redpanda
+    spec:
+      containers:
+      - name: apihub-redpanda
+        image: docker.redpanda.com/redpandadata/redpanda:v23.1.8
+        ports:
+          - containerPort: 8081
+          - containerPort: 8082
+          - containerPort: 9092
+          - containerPort: 9644
+        command:
+          - rpk
+          - redpanda
+          - start
+          - --smp
+          - '1'
+          - --reserve-memory
+          - 0M
+          - --overprovisioned
+          - --node-id
+          - '0'
+          - --kafka-addr
+          - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+          - --advertise-kafka-addr
+          - PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+          - --pandaproxy-addr
+          - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+          - --advertise-pandaproxy-addr
+          - PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082
+

@@ -1,0 +1,7 @@
+---
+- name: Start Podman
+  hosts: localhost
+
+  tasks:
+    - name: Stop all Pods
+      ansible.builtin.shell: "podman pod stop `podman pod ps -q`"

@@ -1,0 +1,14 @@
+---
+- name: Start Podman
+  hosts: localhost
+
+  tasks:
+    - name: Drop Pods via kube file
+      ansible.builtin.shell: "podman kube down {{ item }}"
+      loop:
+        - postgres.yaml
+        - redpanda.yaml
+        - keycloak.yaml
+        - apicurio.yaml
+        - vault.yaml
+        - kong.yaml
