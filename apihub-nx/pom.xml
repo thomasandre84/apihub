@@ -42,7 +42,7 @@
             </configuration>
           </execution>
 
-          <execution>
+          <!--<execution>
             <id>npm build portal</id>
             <goals>
               <goal>npm</goal>
@@ -51,7 +51,7 @@
             <configuration>
               <arguments>run build apihub-portal</arguments>
             </configuration>
-          </execution>
+          </execution> -->
         </executions>
         <configuration>
           <nodeVersion>v18.4.0</nodeVersion>
