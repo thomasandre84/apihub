@@ -27,6 +27,5 @@ mp:
       billing:
         connector: smallrye-kafka
         topic: billing
-      apicurio:
-        registry:
-          auto-register: true
+        value:
+          serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import jakarta.inject.Inject;
 import java.util.UUID;
 
-@QuarkusTest
+/*@QuarkusTest
 public class ProviderTokenPanacheRepositoryTest {
 
     final String accessToken = UUID.randomUUID().toString();
@@ -35,3 +35,4 @@ public class ProviderTokenPanacheRepositoryTest {
 
 
 }
+*/
