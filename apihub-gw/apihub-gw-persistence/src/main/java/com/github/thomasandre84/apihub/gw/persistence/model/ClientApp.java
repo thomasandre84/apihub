@@ -14,5 +14,5 @@ public class ClientApp extends BaseEntity {
 
 
     @ManyToOne
-    private CallbackUrl defaultCallbackUrl;
+    private CallbackUrl callbackUrl;
 }
