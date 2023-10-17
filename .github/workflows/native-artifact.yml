@@ -18,7 +18,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-2019]
         graalvm-version: ['22.2.0']
-        java-version: ['17']
+        java-version: ['21']
         include:
           - os: ubuntu-latest
             executable-suffix: ''
