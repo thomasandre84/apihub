@@ -3,7 +3,6 @@ package com.github.thomasandre84.apihub.gw.persistence.repository;
 import com.github.thomasandre84.apihub.gw.persistence.model.Consent;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
-import io.smallrye.mutiny.Multi;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
