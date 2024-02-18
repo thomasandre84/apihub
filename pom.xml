@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>apihub-common</module>
-    <module>apihub-nx</module>
+    <module>apihub-gui</module>
     <module>apihub-gw</module>
     <module>apihub-admission</module>
     <module>apihub-billing</module>
@@ -20,7 +20,7 @@
   </modules>
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
-    <kotlin.version>1.9.20-RC</kotlin.version>
+    <kotlin.version>1.9.22</kotlin.version>
     <failsafe.useModulePath>false</failsafe.useModulePath>
     <jacoco.version>0.8.11</jacoco.version>
     <maven.compiler.release>21</maven.compiler.release>
@@ -28,7 +28,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>3.4.3</quarkus.platform.version>
+    <quarkus.platform.version>3.7.3</quarkus.platform.version>
     <surefire-plugin.version>3.0.0</surefire-plugin.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok.version>1.18.30</lombok.version>
