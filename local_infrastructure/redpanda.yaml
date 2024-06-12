@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: apihub-redpanda
-  name: apihub-postgres
+  name: apihub-redpanda
 spec:
   ports:
   - name: "18081"

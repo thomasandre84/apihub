@@ -4,7 +4,6 @@ import com.github.thomasandre84.apihub.gw.core.domain.ConsentDomain;
 import com.github.thomasandre84.apihub.gw.core.repository.ConsentRepository;
 import com.github.thomasandre84.apihub.gw.persistence.mapper.ConsentEntityMapper;
 import com.github.thomasandre84.apihub.gw.persistence.model.Consent;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
 

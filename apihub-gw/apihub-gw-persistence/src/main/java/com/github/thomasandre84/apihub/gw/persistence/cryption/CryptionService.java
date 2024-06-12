@@ -1,6 +1,7 @@
 package com.github.thomasandre84.apihub.gw.persistence.cryption;
 
 import com.google.crypto.tink.Aead;
+import com.google.crypto.tink.KeyTemplates;
 import com.google.crypto.tink.KeysetHandle;
 import com.google.crypto.tink.aead.AeadConfig;
 
@@ -11,20 +12,16 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 
-import static com.google.crypto.tink.aead.AeadKeyTemplates.AES256_GCM;
-
 @ApplicationScoped
 @Slf4j
 public class CryptionService {
-
-    private final KeysetHandle keysetHandle;
 
     private final Aead aead;
 
     public CryptionService() throws GeneralSecurityException {
         AeadConfig.register();
-        this.keysetHandle = KeysetHandle.generateNew(
-                AES256_GCM
+        KeysetHandle keysetHandle = KeysetHandle.generateNew(
+                KeyTemplates.get("AES256_GCM")
         );
         this.aead = keysetHandle.getPrimitive(Aead.class);
 

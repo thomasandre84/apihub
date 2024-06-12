@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apihub-kafka-ui
+  name: apihub-kafka-ui
+spec:
+  ports:
+  - name: "8080"
+    nodePort: 42080
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: apihub-kafka-ui
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apihub-kafka-ui
+  name: apihub-kafka-ui
+spec:
+  selector:
+    matchLabels:
+      app: apihub-kafka-ui
+  template:
+    metadata:
+      labels:
+        app: apihub-kafka-ui
+      name: apihub-kafka-ui
+    spec:
+      containers:
+      - name: apihub-kafka-ui
+        image: provectuslabs/kafka-ui:latest
+        ports:
+          - containerPort: 8080
+            hostPort: 21080
+        env:
+        - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
+          value: 'apihub-kafka:9092'
+        - name: KAFKA_CLUSTERS_0_NAME
+          value: apihub
+        - name: KAFKA_CLUSTERS_0_SCHEMAREGISTRY
+          value: http://apihub-apicurio:8080/apis/registry/v2
