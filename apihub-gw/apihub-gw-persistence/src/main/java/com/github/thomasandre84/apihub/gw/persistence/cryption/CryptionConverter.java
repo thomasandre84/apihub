@@ -9,7 +9,7 @@ import java.security.GeneralSecurityException;
 @Converter
 public class CryptionConverter implements AttributeConverter<String, String> {
 
-    private static final String AAD = "test";
+    private static final String AAD = null;
     @Override
     public String convertToDatabaseColumn(String s) {
         try {

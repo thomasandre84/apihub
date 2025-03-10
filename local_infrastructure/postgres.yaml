@@ -34,9 +34,10 @@ spec:
     spec:
       containers:
       - name: apihub-postgres
-        image: docker.io/library/postgres:14
+        image: docker.io/library/postgres:17
         ports:
           - containerPort: 5432
+          - hostPort: 5432
         env:
         - name: POSTGRES_PASSWORD
           value: apihub
